@@ -64,23 +64,27 @@ export default function Register() {
     mode: 'onChange',
   });
 
-  async function handelRegister(data) {
-    setIsLoading(true)
-    console.log(data);
-    try {
-      const res = await axios.post('http://localhost:3000/users', data);
-      console.log("Registration successful:", res.data);
-      setIsLoading(false)
-     navigate('/login');
-    } catch (err) {
-      //console.log( err);
-      setApiError('Registration failed. Please try again.',err);
-      
-    }finally{
-setIsLoading(false);
-    }
-  }
+async function handelRegister(data) {
+  setIsLoading(true);
+  setApiError(null); // نصيحة: صفر الخطأ في بداية المحاولة
 
+  // 1. شيل الـ rePassword قبل ما تبعت للداتابيز لأنها مش بتحتاجه
+  const { rePassword, ...sendData } = data;
+
+  try {
+    const res = await axios.post('http://localhost:3000/users', sendData);
+    console.log('Registration successful:', res.data);
+
+    // 2. الانتقال لصفحة اللوجن
+navigate('/login', { replace: true });
+  } catch (err) {
+    console.error(err);
+    // 3. تصحيح السطر ده (شيل الـ err اللي بعد الكومة)
+    setApiError('Registration failed. Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
+}
   const { register, handleSubmit, formState } = form;
 
   return (

@@ -8,6 +8,64 @@
       "dateOfBirth": "2000-10-11",
       "gender": "female",
       "id": 1
+    },
+    {
+      "name": "Mohamed",
+      "email": "mohamedahmedkhalaf68@gmail.com",
+      "password": "Amera10@",
+      "rePassword": "Amera10@",
+      "dateOfBirth": "2000-10-11",
+      "gender": "male",
+      "id": 2
+    },
+    {
+      "name": "Mohamed",
+      "email": "mohamedahmedkhalaf68@gmail.com",
+      "password": "Amera10@",
+      "rePassword": "Amera10@",
+      "dateOfBirth": "2000-10-11",
+      "gender": "male",
+      "id": 3
+    },
+    {
+      "name": "Aya Gamal",
+      "email": "ayagamal68@gmail.com",
+      "password": "Aya72@22",
+      "dateOfBirth": "2000-04-02",
+      "gender": "female",
+      "id": 4
+    },
+    {
+      "name": "Amera ",
+      "email": "mohamedahmedkhalaf68@gmail.com",
+      "password": "Amera10@",
+      "dateOfBirth": "2000-10-11",
+      "gender": "male",
+      "id": 5
+    },
+    {
+      "name": "Amera ",
+      "email": "mohamedahmedkhalaf68@gmail.com",
+      "password": "Amera10@",
+      "dateOfBirth": "2000-04-20",
+      "gender": "male",
+      "id": 6
+    },
+    {
+      "name": "Amera ",
+      "email": "mohamedahmedkhalaf68@gmail.com",
+      "password": "Amera10@",
+      "dateOfBirth": "2000-10-11",
+      "gender": "female",
+      "id": 7
+    },
+    {
+      "name": "Amera ",
+      "email": "mohamedahmedkhalaf68@gmail.com",
+      "password": "Amera10@",
+      "dateOfBirth": "2002-10-11",
+      "gender": "female",
+      "id": 8
     }
   ]
 }
