@@ -1,6 +1,13 @@
 {
   "users": [
-   
-  
+    {
+      "name": "Amera ",
+      "email": "ameragamal425@gmail.com",
+      "password": "Amera10@",
+      "rePassword": "Amera10@",
+      "dateOfBirth": "2000-10-11",
+      "gender": "female",
+      "id": 1
+    }
   ]
 }
