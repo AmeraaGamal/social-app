@@ -10,18 +10,21 @@ import Notfound from "./components/Notfound/Notfound";
 import CounterContextProvider from "./Context/CounterContext";
 import Profile from "./components/Profile/Profile";
 import AuthContextProvider from "./Context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
+import ProtectedAuthRoute from "./components/ProtectedRoute/ProtectedِAuthRoute"
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element:<ProtectedRoute><Home/></ProtectedRoute> },
+      { path: "home", element:<ProtectedRoute><Home/></ProtectedRoute> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
-      { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> },
+      { path: "login", element:<ProtectedAuthRoute><Login/></ProtectedAuthRoute> },
+      { path: "register", element: < ProtectedAuthRoute><Register/></ProtectedAuthRoute> },
       { path: "*", element: <Notfound /> },
-      { path: "profile", element: <Profile /> }
+      { path: "profile", element: <ProtectedRoute><Profile/></ProtectedRoute> }
     ],
   },
 ]);
