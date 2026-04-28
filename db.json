@@ -66,6 +66,36 @@
       "dateOfBirth": "2002-10-11",
       "gender": "female",
       "id": 8
+    },
+    {
+      "email": "test2@test.com",
+      "password": "$2a$10$7Ia0I0EJj2AvmRewStIgheF5I7Bmoda54XU513zpDATQo57AI0dci",
+      "name": "Test User",
+      "id": 9
+    },
+    {
+      "email": "omargamal68@gmail.com",
+      "password": "$2a$10$rTv5mDLD0qkYydMqKoTUDOvGOcG0jvIDh58NiYwW7NcLLpmVaE/Ly",
+      "name": "omar",
+      "dateOfBirth": "1000-10-11",
+      "gender": "male",
+      "id": 10
+    },
+    {
+      "email": "abdelrahman68@gmail.com",
+      "password": "$2a$10$vyFdqSPwjT9q0TAZcYc.SeHn4MR8q7r7BXUXFrAz73Bo21C6ryGdS",
+      "name": "Abdelrahma",
+      "dateOfBirth": "2003-12-07",
+      "gender": "male",
+      "id": 11
+    },
+    {
+      "email": "ameragamal4255@gmail.com",
+      "password": "$2a$10$oe88kYnwrbO66zMOjhtHh.MtRbCqJlSoo.cGkFhtqx0Cu7B3LhqAa",
+      "name": "Amera ",
+      "dateOfBirth": "2002-10-11",
+      "gender": "female",
+      "id": 12
     }
   ]
 }

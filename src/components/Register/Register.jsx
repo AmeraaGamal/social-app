@@ -72,7 +72,7 @@ async function handelRegister(data) {
   const { rePassword, ...sendData } = data;
 
   try {
-    const res = await axios.post('http://localhost:3000/users', sendData);
+    const res = await axios.post('http://localhost:5000/register', sendData);
     console.log('Registration successful:', res.data);
 
     // 2. الانتقال لصفحة اللوجن
