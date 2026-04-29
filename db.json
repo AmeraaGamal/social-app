@@ -97,5 +97,373 @@
       "gender": "female",
       "id": 12
     }
-  ]
+  ],"posts": {
+    "message": "success",
+    "paginationInfo": {
+      "currentPage": 1,
+      "numberOfPages": 1,
+      "limit": 50,
+      "total": 16
+    },
+    "posts": [
+      {
+        "_id": "68e2a72a8c0ff7c015ca9689",
+        "body": "Assignment 1 CYCLE 45 - Learning React is awesome!",
+        "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "68b8590a22204da515bf728d",
+          "name": "Ahmed Bahnasawy",
+          "photo": "https://i.pravatar.cc/150?u=ahmed"
+        },
+        "createdAt": "2025-10-05T17:13:14.686Z",
+        "comments": [
+          {
+            "_id": "c123456789",
+            "content": "Perfect work Ahmed! Keep going.",
+            "commentCreator": {
+              "_id": "user1",
+              "name": "Amira Gamal",
+              "photo": "https://i.pravatar.cc/150?u=amira"
+            },
+            "createdAt": "2025-10-05T18:00:00.000Z"
+          },
+          {
+            "_id": "c123456790",
+            "content": "Awesome setup, looking forward to the next cycle!",
+            "commentCreator": {
+              "_id": "user2",
+              "name": "Omar Gamal",
+              "photo": "https://i.pravatar.cc/150?u=omar"
+            },
+            "createdAt": "2025-10-05T19:30:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post2_12345",
+        "body": "Exploring the beautiful mountains today. Nature is the best therapy! 🏔️✨",
+        "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user3",
+          "name": "Sara Ali",
+          "photo": "https://i.pravatar.cc/150?u=sara"
+        },
+        "createdAt": "2025-10-06T09:15:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post2_1",
+            "content": "Wow, this view is breathtaking! Where is this?",
+            "commentCreator": {
+              "_id": "user1",
+              "name": "Amira Gamal",
+              "photo": "https://i.pravatar.cc/150?u=amira"
+            },
+            "createdAt": "2025-10-06T10:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post3_67890",
+        "body": "Finally upgraded my workspace! Ready to write some clean code. 💻☕",
+        "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user2",
+          "name": "Omar Gamal",
+          "photo": "https://i.pravatar.cc/150?u=omar"
+        },
+        "createdAt": "2025-10-07T14:20:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post3_1",
+            "content": "That keyboard looks amazing! What model is it?",
+            "commentCreator": {
+              "_id": "68b8590a22204da515bf728d",
+              "name": "Ahmed Bahnasawy",
+              "photo": "https://i.pravatar.cc/150?u=ahmed"
+            },
+            "createdAt": "2025-10-07T14:45:00.000Z"
+          },
+          {
+            "_id": "c_post3_2",
+            "content": "I need a setup like this ASAP.",
+            "commentCreator": {
+              "_id": "user3",
+              "name": "Sara Ali",
+              "photo": "https://i.pravatar.cc/150?u=sara"
+            },
+            "createdAt": "2025-10-07T15:10:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post4_11223",
+        "body": "Just finished reading a great book on design patterns. Highly recommend it to all developers out there!",
+        "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user1",
+          "name": "Amira Gamal",
+          "photo": "https://i.pravatar.cc/150?u=amira"
+        },
+        "createdAt": "2025-10-08T20:00:00.000Z",
+        "comments": []
+      },
+      {
+        "_id": "post5_13579",
+        "body": "Coffee and coding. The perfect combination for a Sunday morning! ☕💻",
+        "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user4",
+          "name": "Nour Hany",
+          "photo": "https://i.pravatar.cc/150?u=nour"
+        },
+        "createdAt": "2025-10-09T08:30:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post5_1",
+            "content": "Enjoy your coffee! What are you working on?",
+            "commentCreator": {
+              "_id": "user3",
+              "name": "Sara Ali",
+              "photo": "https://i.pravatar.cc/150?u=sara"
+            },
+            "createdAt": "2025-10-09T09:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post6_24680",
+        "body": "Look at this amazing sunset I captured today!",
+        "image": "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user5",
+          "name": "Khaled Youssef",
+          "photo": "https://i.pravatar.cc/150?u=khaled"
+        },
+        "createdAt": "2025-10-10T18:45:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post6_1",
+            "content": "Subhanallah! Beautiful shot.",
+            "commentCreator": {
+              "_id": "user1",
+              "name": "Amira Gamal",
+              "photo": "https://i.pravatar.cc/150?u=amira"
+            },
+            "createdAt": "2025-10-10T19:10:00.000Z"
+          },
+          {
+            "_id": "c_post6_2",
+            "content": "Which camera did you use?",
+            "commentCreator": {
+              "_id": "user2",
+              "name": "Omar Gamal",
+              "photo": "https://i.pravatar.cc/150?u=omar"
+            },
+            "createdAt": "2025-10-10T19:25:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post7_97531",
+        "body": "Just pushed my first open source contribution to GitHub! Feeling really proud. 🎉",
+        "image": "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user1",
+          "name": "Amira Gamal",
+          "photo": "https://i.pravatar.cc/150?u=amira"
+        },
+        "createdAt": "2025-10-11T12:00:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post7_1",
+            "content": "Congratulations! The first one is always the hardest.",
+            "commentCreator": {
+              "_id": "68b8590a22204da515bf728d",
+              "name": "Ahmed Bahnasawy",
+              "photo": "https://i.pravatar.cc/150?u=ahmed"
+            },
+            "createdAt": "2025-10-11T12:30:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post8_86420",
+        "body": "Missing the beach vibes... Take me back! 🌊🏖️",
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user3",
+          "name": "Sara Ali",
+          "photo": "https://i.pravatar.cc/150?u=sara"
+        },
+        "createdAt": "2025-10-12T15:20:00.000Z",
+        "comments": []
+      },
+      {
+        "_id": "post9_11111",
+        "body": "Does anyone know a good tutorial for advanced React Hooks? I'm trying to master useReducer and useMemo this week.",
+        "user": {
+          "_id": "user4",
+          "name": "Nour Hany",
+          "photo": "https://i.pravatar.cc/150?u=nour"
+        },
+        "createdAt": "2025-10-13T10:00:00.000Z",
+        "comments": []
+      },
+      {
+        "_id": "post10_22222",
+        "body": "Just got this new mechanical keyboard and it sounds amazing!",
+        "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user2",
+          "name": "Omar Gamal",
+          "photo": "https://i.pravatar.cc/150?u=omar"
+        },
+        "createdAt": "2025-10-13T14:30:00.000Z",
+        "comments": []
+      },
+      {
+        "_id": "post11_33333",
+        "body": "Question for the developers here: Mac or Windows for programming? Let the debate begin! 🤔",
+        "user": {
+          "_id": "68b8590a22204da515bf728d",
+          "name": "Ahmed Bahnasawy",
+          "photo": "https://i.pravatar.cc/150?u=ahmed"
+        },
+        "createdAt": "2025-10-14T11:15:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post11_1",
+            "content": "Mac for sure! The terminal is just built-in and smooth.",
+            "commentCreator": {
+              "_id": "user5",
+              "name": "Khaled Youssef",
+              "photo": "https://i.pravatar.cc/150?u=khaled"
+            },
+            "createdAt": "2025-10-14T11:20:00.000Z"
+          },
+          {
+            "_id": "c_post11_2",
+            "content": "Windows with WSL2 is actually really good now.",
+            "commentCreator": {
+              "_id": "user1",
+              "name": "Amira Gamal",
+              "photo": "https://i.pravatar.cc/150?u=amira"
+            },
+            "createdAt": "2025-10-14T11:35:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post12_44444",
+        "body": "It's been a long day of debugging... Time to rest. Good night everyone! 🌙",
+        "user": {
+          "_id": "user3",
+          "name": "Sara Ali",
+          "photo": "https://i.pravatar.cc/150?u=sara"
+        },
+        "createdAt": "2025-10-14T23:50:00.000Z",
+        "comments": []
+      },
+      {
+        "_id": "post13_55555",
+        "body": "Finally mastered Next.js 14! The App Router makes so much sense once you get used to it. 🔥",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "68b8590a22204da515bf728d",
+          "name": "Ahmed Bahnasawy",
+          "photo": "https://i.pravatar.cc/150?u=ahmed"
+        },
+        "createdAt": "2025-10-15T09:30:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post13_1",
+            "content": "Awesome! The server components are a game changer.",
+            "commentCreator": {
+              "_id": "user1",
+              "name": "Amira Gamal",
+              "photo": "https://i.pravatar.cc/150?u=amira"
+            },
+            "createdAt": "2025-10-15T10:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post14_66666",
+        "body": "Does anyone have recommendations for a good UI library besides HeroUI and Material UI?",
+        "user": {
+          "_id": "user4",
+          "name": "Nour Hany",
+          "photo": "https://i.pravatar.cc/150?u=nour"
+        },
+        "createdAt": "2025-10-16T14:15:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post14_1",
+            "content": "Check out Chakra UI, it's really easy to use.",
+            "commentCreator": {
+              "_id": "user2",
+              "name": "Omar Gamal",
+              "photo": "https://i.pravatar.cc/150?u=omar"
+            },
+            "createdAt": "2025-10-16T14:20:00.000Z"
+          },
+          {
+            "_id": "c_post14_2",
+            "content": "I highly recommend Tailwind CSS with Headless UI.",
+            "commentCreator": {
+              "_id": "user3",
+              "name": "Sara Ali",
+              "photo": "https://i.pravatar.cc/150?u=sara"
+            },
+            "createdAt": "2025-10-16T14:45:00.000Z"
+          },
+          {
+            "_id": "c_post14_3",
+            "content": "NextUI is great too!",
+            "commentCreator": {
+              "_id": "user5",
+              "name": "Khaled Youssef",
+              "photo": "https://i.pravatar.cc/150?u=khaled"
+            },
+            "createdAt": "2025-10-16T15:10:00.000Z"
+          }
+        ]
+      },
+      {
+        "_id": "post15_77777",
+        "body": "Morning runs are the best way to start the day. 🏃‍♂️💨",
+        "image": "https://images.unsplash.com/photo-1536640712-4d4c36ef0e12?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user5",
+          "name": "Khaled Youssef",
+          "photo": "https://i.pravatar.cc/150?u=khaled"
+        },
+        "createdAt": "2025-10-17T06:30:00.000Z",
+        "comments": []
+      },
+      {
+        "_id": "post16_88888",
+        "body": "Just deployed my portfolio website using Vercel. Check it out!",
+        "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
+        "user": {
+          "_id": "user1",
+          "name": "Amira Gamal",
+          "photo": "https://i.pravatar.cc/150?u=amira"
+        },
+        "createdAt": "2025-10-18T18:00:00.000Z",
+        "comments": [
+          {
+            "_id": "c_post16_1",
+            "content": "Looks amazing! Great job Amira.",
+            "commentCreator": {
+              "_id": "68b8590a22204da515bf728d",
+              "name": "Ahmed Bahnasawy",
+              "photo": "https://i.pravatar.cc/150?u=ahmed"
+            },
+            "createdAt": "2025-10-18T18:30:00.000Z"
+          }
+        ]
+      }
+    ]
+  }
 }
