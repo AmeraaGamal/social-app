@@ -1,44 +1,52 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import PostCard from '../PostCard/PostCard'
-import Loader from '../Loader/Loader'
+import axios from 'axios';
+import React from 'react';
+import PostCard from '../PostCard/PostCard';
+import Loader from '../Loader/Loader';
+
+import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
+  // const [allPosts, setAllPosts] = useState(null)
+  // const [isLoading, setIsLoading]  = useState(true)
+  // const [isError, setIsError] = useState(false)
 
-  const [allPosts, setAllPosts] = useState(null)
-  const [isLoading, setIsLoading]  = useState(true)
-  const [isError, setIsError] = useState(false)
-
-  function getAllPosts(){
-    axios.get( `http://localhost:5000/posts` ,{
-      params:{sort: "createdAt"},
+  async function getAllPosts() {
+    return await axios.get(`https://route-posts.routemisr.com/posts`, {
+      params: { sort: 'createdAt' },
       headers: {
-        Authorization : `Bearer ${localStorage.getItem("userToken")}`
-      }
-    }).then((res) => {
-      console.log(res.data);
-       setAllPosts(res.data.posts)
-    }).catch((error) => {
-      console.log(error);
-      setIsError(true)
-     
-    }).finally(() => {
-  setIsLoading(false);
-});
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      },
+    });
   }
-  useEffect(()=>{
-    getAllPosts()
-  },[])
+  // useEffect(()=>{
+  //   getAllPosts()
+  // },[])
 
-  if(isLoading){
-return <Loader/>  }
-  if(isError){
-    return <h1>Error...</h1>
+  const { data, isLoading, isError ,error, isFetching } = useQuery({
+    queryKey: ['getAllPosts'],
+    queryFn: getAllPosts, //function return promise
+  
+  });
+
+  console.log("data :",data);
+  console.log("isLoading :",isLoading);
+  console.log("isError :",isError);
+  console.log("error:" ,error);
+  console.log("isFetching :",isFetching);
+  
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (isError) {
+    return <h1>Error...</h1>;
   }
   return (
     <>
-    {allPosts?.map((post)=> <div key ={post._id}><PostCard post={post}/> </div>)}
+      {data?.data?.data?.posts?.map((post) => (
+        <div key={post.id}>
+          <PostCard post={post} />
+        </div>
+      ))}
     </>
-      
-  )
+  );
 }

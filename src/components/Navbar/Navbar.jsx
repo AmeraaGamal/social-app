@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // استيراد Link للتنقل
+import { Link, useNavigate } from 'react-router-dom'; 
 import { HiOutlineMenuAlt3, HiX, HiOutlineUserCircle } from 'react-icons/hi';
 import { FiLogOut, FiSettings } from 'react-icons/fi';
 import { AuthContext } from '../../Context/AuthContext';
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const {userLogin,setUserLogin} = useContext(AuthContext)
    const navigate =useNavigate()  
+
    function logout(e){
     if (e) e.preventDefault();
     localStorage.removeItem('userToken')
@@ -23,7 +24,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-white border-b border-gray-100 py-3 px-6 flex items-center justify-between sticky top-0 z-40">
-        {/* جهة اليسار: المنيو (جوال) + اللوجو */}
+        
         <div className="flex items-center gap-4">
           <button
             className="md:hidden text-2xl text-gray-700"
@@ -39,7 +40,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* جهة اليمين: الروابط النصية + الأفاتار */}
         <div className="flex items-center gap-8">
           {/* الروابط النصية للشاشات الكبيرة */}
           <div className="hidden md:flex items-center gap-8 text-gray-700 font-semibold text-sm">

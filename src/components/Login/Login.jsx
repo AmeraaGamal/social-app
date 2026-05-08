@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import * as zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
-import {AuthContext} from '../../Context/AuthContext'
+import { AuthContext } from '../../Context/AuthContext';
 const schema = zod.object({
   email: zod
     .email('invalid email')
@@ -23,9 +23,9 @@ const schema = zod.object({
 export default function Login() {
   const [apiError, setApiError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
- 
+
   const navigate = useNavigate();
- const {userLogin, setUserLogin}=useContext(AuthContext);
+  const { userLogin, setUserLogin } = useContext(AuthContext);
   const form = useForm({
     defaultValues: {
       email: '',
@@ -35,33 +35,35 @@ export default function Login() {
     mode: 'onChange',
   });
 
-  async function handelLogin(data) {
+  async function handleLogin(data) {
     setIsLoading(true);
     setApiError(null);
 
-    try {
-      const res = await axios.post('http://localhost:5000/login', {
-        email: data.email,
-        password: data.password,
-      });
+    await axios
+      .post('https://route-posts.routemisr.com/users/signin', data)
 
-      if (res.data) {
-        console.log('Login successful:', res.data);
-        // تخزين التوكن
-        localStorage.setItem('userToken', res.data.accessToken);
-        localStorage.setItem('user', JSON.stringify(res.data.user));
-        setUserLogin(res.data.accessToken)
-        navigate('/');
-      }
-    } catch (err) {
-      if (err.response?.status === 401) {
-        setApiError('Invalid email or password');
-      } else {
-        setApiError('Something went wrong');
-      }
-    } finally {
-      setIsLoading(false);
-    }
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.message);
+        if (res.data.message === 'signed in successfully') {
+          localStorage.setItem('userToken', res.data.data.token);
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              name: res.data.data.user.name,
+              email: res.data.data.user.email,
+            })
+          );
+          setUserLogin(res.data.data.token);
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        setApiError(err.response.data.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   const { register, handleSubmit, formState } = form;
@@ -76,7 +78,7 @@ export default function Login() {
           </p>
         )}
         <form
-          onSubmit={handleSubmit(handelLogin)}
+          onSubmit={handleSubmit(handleLogin)}
           className="max-w-md mx-auto my-7"
         >
           <div className="relative z-0 w-full mb-5 group">

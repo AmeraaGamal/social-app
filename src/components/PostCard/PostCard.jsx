@@ -4,15 +4,35 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai"; // أيقونة ال
 import { FaRegCommentDots } from "react-icons/fa"; // أيقونة الكومنت
 import { PiShareFatLight } from "react-icons/pi";  
 import Comment from "../Comment/Comment";
+//import {Link} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import Commentcreation from "../Commentcreation/Commentcreation";
 
-export default function PostCard({post}) {
+export default function PostCard({post , isPostDetails=false}) {
   const [isLiked, setIsLiked] = useState(false);
 
-    const {body, image , comments , createdAt, user } = post;
+    const {body, image , comments , createdAt, user, topComment , id} = post;
     const {name,photo} = user
-    const comment = comments?.[0];
+    const myTopComment = topComment;
     const postImage = "https://heroui.com/favicon.ico"
     if(!image && !body) return
+
+    function getPostComments(){
+      return axios.get(`https://route-posts.routemisr.com/posts/${id}/comments`,{
+        headers:{
+            Authorization:`Bearer ${localStorage.getItem("userToken")}`
+        }
+      })
+    }
+
+    const {data, isLoading, isError , error} = useQuery({
+      queryKey: ["getPostComments",id],
+      queryFn: getPostComments,
+      enabled: isPostDetails
+    })
+    //console.log( "my comment :",data?.data.data.comments)
   return (
     <Card className="max-w-125 border-none shadow-[0_10px_40px_rgba(0,0,0,0.05)] rounded-[20px] mb-6 mx-auto bg-white">
       
@@ -21,9 +41,9 @@ export default function PostCard({post}) {
              <img
               alt="logo"
               radius="none"
-              src= {photo} // شعار HeroUI أو أي لوجو
+              src= {photo} 
               onError ={(e)=> e.target.src = postImage}
-              className="w-5 h-5 invert object-contain" // object-contain عشان ميبقاش ممطوط
+              className="w-5 h-5 invert object-contain" 
             />
         </div>
         <div className="flex flex-col">
@@ -32,28 +52,32 @@ export default function PostCard({post}) {
         </div>
       </CardHeader>
       
-      {/* خليت الـ Divider شفاف شوية عشان يبقى ناعم زي الصورة */}
       <Divider className="opacity-40"/>
 
-      {/* 2. محتوى البوست (Body) - px-6 */}
       <CardBody className="px-6 py-5">
         {body && <p>{body}</p>}
         {image && <img src={image} alt={body}/>}
       </CardBody>
-      
+       
       <Divider className="opacity-40"/>
-
-      {/* 3. أسفل الكارد (Footer) - px-6 */}
       <CardFooter className="px-6 py-4">
        <div className=" w-full flex justify-between">
         <div className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-medium"><AiOutlineLike className="text-xl" /><span>Like</span></div>
-        <div className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-medium"><FaRegCommentDots className="text-xl" /><span>Comments</span></div>
+        <div className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-medium"><FaRegCommentDots className="text-xl" /><RouterLink to={`/postdetails/${id}`}>Comments</RouterLink></div>
         <div className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors text-sm font-medium"><PiShareFatLight className="text-xl" /><span> share</span></div>
        </div>
       </CardFooter>
-       {comment && (
-         <Comment comment={comment}/>
+      <Commentcreation userPhoto={user?.photo} postId={id} queryKey={isPostDetails ?["getPostComments"]: ["getAllPosts"]}/>
+
+       {isPostDetails===false &&myTopComment && (
+         <Comment comment={myTopComment}/>
        )}
+       {isPostDetails && data?.data?.comments?.map((currentComment) => (
+        <Comment comment={currentComment} key={currentComment.id}/>
+       ))}
+       {isPostDetails && !data?.data?.comments && data?.data?.data?.comments?.map((currentComment) => (
+        <Comment comment={currentComment} key={currentComment.id}/>
+       ))}
     </Card>
   );
 }

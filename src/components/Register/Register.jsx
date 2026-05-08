@@ -64,26 +64,22 @@ export default function Register() {
     mode: 'onChange',
   });
 
-async function handelRegister(data) {
+ function handleRegister(data) {
   setIsLoading(true);
-  setApiError(null); // نصيحة: صفر الخطأ في بداية المحاولة
+  setApiError(null); 
 
-  // 1. شيل الـ rePassword قبل ما تبعت للداتابيز لأنها مش بتحتاجه
-  const { rePassword, ...sendData } = data;
-
-  try {
-    const res = await axios.post('http://localhost:5000/register', sendData);
-    console.log('Registration successful:', res.data);
-
-    // 2. الانتقال لصفحة اللوجن
-navigate('/login', { replace: true });
-  } catch (err) {
-    console.error(err);
-    // 3. تصحيح السطر ده (شيل الـ err اللي بعد الكومة)
-    setApiError('Registration failed. Please try again.');
-  } finally {
-    setIsLoading(false);
+axios.post('https://route-posts.routemisr.com/users/signup', data)
+.then((res)=>{
+  console.log('Registration successful:', res.data);
+  if(res.data.message === "account created"){
+    navigate("/login")
   }
+}).catch ((err)=> {
+    console.error(err);
+    setApiError(err.response?.data?.error || err.response?.data?.message || 'Registration failed. Please try again.');
+  }) .finally (()=> {
+    setIsLoading(false);
+  })
 }
   const { register, handleSubmit, formState } = form;
 
@@ -97,7 +93,7 @@ navigate('/login', { replace: true });
           </p>
         )}
         <form
-          onSubmit={handleSubmit(handelRegister)}
+          onSubmit={handleSubmit(handleRegister)}
           className="max-w-md mx-auto my-7"
         >
           <div className="relative z-0 w-full mb-5 group">
