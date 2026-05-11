@@ -28,8 +28,8 @@ export default function Login() {
   const { userLogin, setUserLogin } = useContext(AuthContext);
   const form = useForm({
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'amira@example.com',
+      password: 'Amira123!',
     },
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -66,12 +66,7 @@ export default function Login() {
       });
   }
 
-  const { register, handleSubmit, formState, setValue } = form;
-
-  const fillDemoAccount = () => {
-    setValue('email', 'amira@example.com'); // حساب تجريبي مقترح
-    setValue('password', 'Amira123!'); 
-  };
+  const { register, handleSubmit, formState } = form;
 
   return (
     <>
@@ -131,21 +126,10 @@ export default function Login() {
           <button
             disabled={isLoading}
             type="submit"
-            className="text-white disabled:bg-slate-400 disabled:cursor-not-allowed bg-blue-500 rounded-2xl w-full hover:bg-blue-600 cursor-pointer px-4 py-2.5 mt-4"
+            className="text-white disabled:bg-slate-400 disabled:cursor-not-allowed bg-blue-500 rounded-2xl w-full hover:bg-blue-600 cursor-pointer px-4 py-2.5"
           >
             {isLoading ? 'loading...' : 'Login'}
           </button>
-
-          <div className="mt-6 p-4 bg-gray-50 border border-dashed border-gray-300 rounded-2xl">
-             <p className="text-sm text-gray-500 mb-3">Want to try it out quickly?</p>
-             <button
-               type="button"
-               onClick={fillDemoAccount}
-               className="text-blue-600 border border-blue-600 hover:bg-blue-50 font-medium rounded-xl text-sm px-5 py-2 transition-colors"
-             >
-               Fill Demo Credentials
-             </button>
-          </div>
         </form>
       </div>
     </>
