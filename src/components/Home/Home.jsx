@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import PostCard from '../PostCard/PostCard';
 import Loader from '../Loader/Loader';
-
+import PostCreation from '../PostCreation/PostCreation';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
 
   async function getAllPosts() {
     return await axios.get(`https://route-posts.routemisr.com/posts`, {
-      params: { sort: 'createdAt' },
+      params: { sort: '-createdAt' },
       headers: {
         Authorization: `Bearer ${localStorage.getItem('userToken')}`,
       },
@@ -22,18 +22,13 @@ export default function Home() {
   //   getAllPosts()
   // },[])
 
-  const { data, isLoading, isError ,error, isFetching } = useQuery({
+  const { data, isLoading, isError, error, isFetching } = useQuery({
     queryKey: ['getAllPosts'],
-    queryFn: getAllPosts, //function return promise
-  
+    queryFn: getAllPosts,
   });
 
-  console.log("data :",data);
-  console.log("isLoading :",isLoading);
-  console.log("isError :",isError);
-  console.log("error:" ,error);
-  console.log("isFetching :",isFetching);
-  
+  console.log("Feed Data:", data?.data?.data?.posts);
+
   if (isLoading) {
     return <Loader />;
   }
@@ -42,6 +37,8 @@ export default function Home() {
   }
   return (
     <>
+
+    <PostCreation/>
       {data?.data?.data?.posts?.map((post) => (
         <div key={post.id}>
           <PostCard post={post} />

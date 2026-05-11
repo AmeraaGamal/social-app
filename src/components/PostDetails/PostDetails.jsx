@@ -23,7 +23,7 @@ import PostCard from '../PostCard/PostCard';
             queryFn: getPostDetails,
         })
 
-        console.log("data : ",data)
+        // console.log("data : ",data)
         if(isLoading){
             return <Loader/>
         }

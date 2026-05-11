@@ -43,8 +43,8 @@ export default function Login() {
       .post('https://route-posts.routemisr.com/users/signin', data)
 
       .then((res) => {
-        console.log(res);
-        console.log(res.data.message);
+        // console.log(res);
+        // console.log(res.data.message);
         if (res.data.message === 'signed in successfully') {
           localStorage.setItem('userToken', res.data.data.token);
           localStorage.setItem(

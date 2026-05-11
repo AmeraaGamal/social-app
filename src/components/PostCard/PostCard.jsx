@@ -1,10 +1,9 @@
 import React ,{useState}from "react";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image } from "@nextui-org/react";
-import { AiOutlineLike, AiFillLike } from "react-icons/ai"; // أيقونة اللايك (فارغة ومملوءة)
-import { FaRegCommentDots } from "react-icons/fa"; // أيقونة الكومنت
+import { AiOutlineLike, AiFillLike } from "react-icons/ai"; 
+import { FaRegCommentDots } from "react-icons/fa"; 
 import { PiShareFatLight } from "react-icons/pi";  
 import Comment from "../Comment/Comment";
-//import {Link} from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +16,7 @@ export default function PostCard({post , isPostDetails=false}) {
     const {name,photo} = user
     const myTopComment = topComment;
     const postImage = "https://heroui.com/favicon.ico"
+
     if(!image && !body) return
 
     function getPostComments(){
@@ -55,8 +55,8 @@ export default function PostCard({post , isPostDetails=false}) {
       <Divider className="opacity-40"/>
 
       <CardBody className="px-6 py-5">
-        {body && <p>{body}</p>}
-        {image && <img src={image} alt={body}/>}
+        {body?.trim() && <p className="mb-3 text-gray-800">{body}</p>}
+        {image && <img src={image} alt={body || "post image"} className="rounded-xl w-full object-cover"/>}
       </CardBody>
        
       <Divider className="opacity-40"/>
@@ -73,10 +73,10 @@ export default function PostCard({post , isPostDetails=false}) {
          <Comment comment={myTopComment}/>
        )}
        {isPostDetails && data?.data?.comments?.map((currentComment) => (
-        <Comment comment={currentComment} key={currentComment.id}/>
+        <Comment comment={currentComment} key={currentComment._id}/>
        ))}
        {isPostDetails && !data?.data?.comments && data?.data?.data?.comments?.map((currentComment) => (
-        <Comment comment={currentComment} key={currentComment.id}/>
+        <Comment comment={currentComment} key={currentComment._id}/>
        ))}
     </Card>
   );
