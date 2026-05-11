@@ -28,6 +28,7 @@ export default function Login() {
   const { userLogin, setUserLogin } = useContext(AuthContext);
   const form = useForm({
     defaultValues: {
+      // Demo credentials for testing purposes
       email: 'amira@example.com',
       password: 'Amira123!',
     },
