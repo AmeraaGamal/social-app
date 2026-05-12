@@ -53,7 +53,7 @@ export default function PostCreation() {
     const isInvalid = !content.trim() && !postImage;
 
     const removeImage = () => {
-        if (selectedImage) URL.revokeObjectURL(selectedImage); // تنظيف الرابط القديم من الذاكرة
+        if (selectedImage) URL.revokeObjectURL(selectedImage); 
         setSelectedImage(null);
         setPostImage(null);
         setImageVisible(false);

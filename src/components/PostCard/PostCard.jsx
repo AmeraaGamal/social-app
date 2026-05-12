@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import {
   Card, CardHeader, CardBody, CardFooter, Divider,
-  Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button
+  Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button, Textarea
 } from "@nextui-org/react";
 import { AiOutlineLike } from "react-icons/ai";
 import { FaRegCommentDots, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { PiShareFatLight } from "react-icons/pi";
-import { IoEllipsisVertical } from "react-icons/io5";
+import { IoEllipsisVertical, IoImageOutline, IoCloseCircle } from "react-icons/io5";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useRef } from "react";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -23,6 +24,11 @@ export default function PostCard({ post, isPostDetails = false }) {
   const userId = user._id;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const fileInputRef = useRef(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(body);
+  const [newImageFile, setNewImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const postImage = "https://heroui.com/favicon.ico";
 
   if (!image && !body) return null;
@@ -40,6 +46,27 @@ export default function PostCard({ post, isPostDetails = false }) {
     });
   }
 
+  function editPost(formData) {
+    return axios.put(`https://route-posts.routemisr.com/posts/${id}`,
+      formData,
+      { headers: { Authorization: `Bearer ${localStorage.getItem("userToken")}` } }
+    );
+  }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNewImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setImagePreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeNewImage = () => {
+    setNewImageFile(null);
+    setImagePreview(null);
+  };
   // --- Queries & Mutations ---
   const { data } = useQuery({
     queryKey: ["getPostComments", id],
@@ -53,7 +80,6 @@ export default function PostCard({ post, isPostDetails = false }) {
     onSuccess: () => {
       toast.success("Post deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["getAllPosts"] });
-      // لو إحنا في صفحة التفاصيل، نرجع للهوم بعد المسح
       if (isPostDetails) navigate('/');
     },
     onError: () => {
@@ -61,6 +87,32 @@ export default function PostCard({ post, isPostDetails = false }) {
     }
   });
 
+  const { mutate: editMutation, isPending: isEditingPending } = useMutation({
+    mutationKey: ["editPost", id],
+    mutationFn: editPost,
+    onSuccess: () => {
+      toast.success("Post edited successfully");
+      queryClient.invalidateQueries({ queryKey: ["getAllPosts"] });
+      setIsEditing(false);
+      setNewImageFile(null);
+      setImagePreview(null);
+      if (isPostDetails) navigate('/');
+    },
+    onError: () => {
+      toast.error("Failed to edit post");
+    }
+  });
+
+  const handleSave = () => {
+    const formData = new FormData();
+    formData.append("body", editContent);
+    if (newImageFile) {
+      formData.append("image", newImageFile);
+    }
+    editMutation(formData);
+  };
+
+  
   return (
     <Card className="max-w-125 border-none shadow-[0_10px_40px_rgba(0,0,0,0.05)] rounded-[20px] mb-6 mx-auto bg-white">
       <CardHeader className="flex justify-between items-center gap-3 px-6 py-4">
@@ -88,12 +140,15 @@ export default function PostCard({ post, isPostDetails = false }) {
               </Button>
             </DropdownTrigger>
 
-            {/* ✅ التعديل هنا: الـ onAction أصبحت داخل الـ Menu وتتعامل مع الـ keys */}
             <DropdownMenu
               aria-label="Post Actions"
               onAction={(key) => {
                 if (key === "delete") mutate();
-                if (key === "edit") console.log("Edit logic here");
+                if (key === "edit") {
+                  setEditContent(body);
+                  setIsEditing(true);
+                  setImagePreview(image);
+                }
               }}
             >
               <DropdownItem key="edit" startContent={<FaPencilAlt />}>
@@ -115,8 +170,80 @@ export default function PostCard({ post, isPostDetails = false }) {
       <Divider className="opacity-40" />
 
       <CardBody className="px-6 py-5">
-        {body?.trim() && <p className="mb-3 text-gray-800">{body}</p>}
-        {image && <img src={image} alt="post" className="rounded-xl w-full object-cover" />}
+        {isEditing ? (
+          <div className="flex flex-col gap-3">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              className="hidden"
+              accept="image/*"
+            />
+            <Textarea
+              value={editContent}
+              onValueChange={setEditContent}
+              variant="bordered"
+              placeholder="What's on your mind?"
+              classNames={{
+                input: "text-gray-800",
+              }}
+            />
+            
+            {(imagePreview || image) && (
+              <div className="relative group">
+                <img 
+                  src={imagePreview || image} 
+                  alt="preview" 
+                  className="rounded-xl w-full object-cover max-h-60" 
+                />
+                <button
+                  onClick={removeNewImage}
+                  className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <IoCloseCircle size={20} />
+                </button>
+              </div>
+            )}
+
+            <div className="flex justify-between items-center">
+              <Button
+                size="sm"
+                variant="light"
+                startContent={<IoImageOutline size={20} />}
+                onPress={() => fileInputRef.current.click()}
+              >
+                Change Image
+              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="flat" 
+                  onPress={() => {
+                    setIsEditing(false);
+                    setImagePreview(null);
+                    setNewImageFile(null);
+                  }}
+                  isDisabled={isEditingPending}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  size="sm" 
+                  color="primary" 
+                  onPress={handleSave}
+                  isLoading={isEditingPending}
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {body?.trim() && <p className="mb-3 text-gray-800">{body}</p>}
+            {image && <img src={image} alt="post" className="rounded-xl w-full object-cover" />}
+          </>
+        )}
       </CardBody>
 
       <Divider className="opacity-40" />
