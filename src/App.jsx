@@ -14,6 +14,14 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute"
 import ProtectedAuthRoute from "./components/ProtectedRoute/ProtectedِAuthRoute"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PostDetails from "./components/PostDetails/PostDetails";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import DetectOffline from "./DetectOffline/DetectOffline";
+import { useNetworkState } from "react-use"; 
+import { HelmetProvider } from "react-helmet-async";
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -36,13 +44,19 @@ const router = createBrowserRouter([
 const query = new QueryClient()
 
 export default function App() {
+  const { online } = useNetworkState();
+
   return (
+<HelmetProvider>
+    {!online && <DetectOffline/>}
     <QueryClientProvider client={query}>
       <AuthContextProvider>
         <CounterContextProvider>
           <RouterProvider router={router} />
+          <ToastContainer/>
         </CounterContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>
+</HelmetProvider>
   );
 }

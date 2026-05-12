@@ -4,6 +4,7 @@ import PostCard from '../PostCard/PostCard';
 import Loader from '../Loader/Loader';
 import PostCreation from '../PostCreation/PostCreation';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 
 export default function Home() {
   // const [allPosts, setAllPosts] = useState(null)
@@ -27,7 +28,6 @@ export default function Home() {
     queryFn: getAllPosts,
   });
 
-  console.log("Feed Data:", data?.data?.data?.posts);
 
   if (isLoading) {
     return <Loader />;
@@ -37,7 +37,9 @@ export default function Home() {
   }
   return (
     <>
-
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
     <PostCreation/>
       {data?.data?.data?.posts?.map((post) => (
         <div key={post.id}>

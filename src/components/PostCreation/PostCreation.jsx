@@ -8,6 +8,7 @@ import { IoImageOutline, IoCloseCircle, IoEarth, IoHappyOutline, IoLocationOutli
 import { MdOutlineGif } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const MEDIA_ACTIONS = [
     { icon: <IoImageOutline size={18} />, label: "Photo", color: "text-emerald-500" },
@@ -79,7 +80,7 @@ export default function PostCreation() {
     const { isPending, mutate } = useMutation({
         mutationFn: createPost,
         onSuccess: (res) => {
-            console.log("post created:", res.data);
+ toast.success("post created 👍", {closeOnClick:true, autoClose:2000})
             queryClient.invalidateQueries({ queryKey: ['getAllPosts'] });
             setErrorMsg("");
             onOpenChange(false);
@@ -90,6 +91,8 @@ export default function PostCreation() {
             removeImage();
         },
         onError: (err) => {
+            toast.error("🛑 Failed to create post .", { closeOnClick: true, autoClose: 2000 })
+
             setErrorMsg(err.response?.data?.message || "Failed to create post. Please try again.");
         }
     });
@@ -267,15 +270,15 @@ export default function PostCreation() {
                                 >
                                     Cancel
                                 </Button>
-                                <button
+                                <Button
                                     color="primary"
                                     isLoading={isPending}
                                     isDisabled={isInvalid}
                                     className="flex-1 h-9 rounded-xl font-bold text-sm bg-gradient-to-r from-blue-600 to-blue-500 shadow-lg shadow-blue-100 hover:shadow-blue-200 transition-shadow disabled:opacity-50 disabled:grayscale"
-                                    onClick={() => mutate()}
+                                    onPress={() => mutate()}
                                 >
-                                    Post
-                                </button>
+                                    {isPending ? "Posting..." : "Post"}
+                                </Button>
                             </ModalFooter>
                         </>
                     )}

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LuLoaderCircle } from "react-icons/lu";
-
+import { toast } from "react-toastify";
 
 export default function CommentCreation({ userPhoto, postId, queryKey }) {
 
@@ -45,9 +45,11 @@ export default function CommentCreation({ userPhoto, postId, queryKey }) {
     onSuccess: () => {
       query.invalidateQueries({ queryKey: queryKey });
       form.reset();
+       toast.success("comment created 👍", {closeOnClick:true, autoClose:2000})
+      
     },
-    onError: (err) => {
-      console.log("Error Details:", err.response?.data);
+    onError: (error) => {
+ toast.error("🛑 comment not created ", {closeOnClick:true, autoClose:2000})
     },
 
   })
