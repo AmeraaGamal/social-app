@@ -115,7 +115,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* القائمة الجانبية للجوال */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 md:hidden"
@@ -137,36 +136,52 @@ const Navbar = () => {
               </button>
             </div>
             <div className="flex flex-col gap-8 text-gray-800 text-lg font-bold">
-           {  userLogin!==null&& (<Link
-                to="/"
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-blue-600"
-              >
-                Home
-              </Link>)}
-              {userLogin=== null &&(<> <Link
-                to="/register"
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-blue-600"
-              >
-                Register
-              </Link>
-              <Link
-                to="/login"
-                onClick={() => setIsMenuOpen(false)}
-                className="hover:text-blue-600"
-              >
-                Login
-              </Link> </>)}
+              {userLogin !== null && (
+                <>
+                  <Link
+                    to="/"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-blue-600 flex items-center gap-3"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-blue-600 flex items-center gap-3"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={(e) => {
+                      setIsMenuOpen(false);
+                      logout(e);
+                    }}
+                    className="text-red-500 hover:text-red-600 flex items-center gap-3 text-left"
+                  >
+                    Log Out
+                  </button>
+                </>
+              )}
+              {userLogin === null && (
+                <>
+                  <Link
+                    to="/register"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-blue-600"
+                  >
+                    Register
+                  </Link>
+                  <Link
+                    to="/login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="hover:text-blue-600"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </div>
-            {userLogin !==null && (<div className="mt-auto border-t pt-6">
-              <button  onClick={(e) => {
-        setIsMenuOpen(false);
-        logout(e);
-      }} className="flex items-center gap-3 text-red-500 font-bold">
-                <FiLogOut size={22} /> Log Out
-              </button>
-            </div>)}
           </div>
         </div>
       )}
